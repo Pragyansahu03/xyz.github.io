@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+        integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <style>
+        #fact {
+            display: none;
+        }
+        body{
+            background-image: url("img11.jpg");
+        }
+        #me{
+            margin-bottom: 500px;
+            height: 300px;
+            width: 700px;
+            -webkit-box-shadow: 5px 5px 15px 2px #090D32; 
+box-shadow: 5px 5px 15px 2px #090D32;
+background: #15A4A4;
+background: -moz-linear-gradient(top, #15A4A4 0%, #64A0CB 43%, #3D5D75 100%);
+background: -webkit-linear-gradient(top, #15A4A4 0%, #64A0CB 43%, #3D5D75 100%);
+background: linear-gradient(to bottom, #15A4A4 0%, #64A0CB 43%, #3D5D75 100%);
+        }
+
+        #hi{
+            color: #FFF;
+
+text-shadow: #FFF 0 -1px 4px, #ff0 0 -2px 10px, #ff8000 0 -10px 20px, red 0 -18px 40px;
+        }
+
+        #clr1{
+            color: black;
+        }
+        #factText{
+            color: black;
+        }
+    </style>
+    <title>Number Facts</title>
+</head>
+
+<body class="bg-success">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mx-auto" >
+                <div class="card bg-primary text-warning mt-5 p-4"  id="me">
+                    <h1 id="hi">Number Facts</h1>
+                    <p class="text-white"> <strong>Enter a number and get a random fact</strong></p>
+                    <input type="number" class="form-control form-control-lg" id="numberInput"
+                        placeholder="Enter any number...">
+                    <div id="fact" class="card-body">
+                        <h4 class="card-title " id="clr1">
+                            Number Fact
+                        </h4>
+                        <p id="factText" class="card-text  fw-bolder" ></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let fact = document.querySelector('#fact');
+        let factText = document.querySelector('#factText');
+
+        let numberInput = document.querySelector('#numberInput');
+        numberInput.addEventListener('input', getFactAjax);
+
+        // Fetch with XHR
+        function getFactAjax() {
+            let number = numberInput.value;
+            if (number != '') {
+                let xhr = new XMLHttpRequest();
+                xhr.open('GET', 'http://numbersapi.com/' + number);
+
+                xhr.onload = function () {
+                    if (this.status == 200) {
+                        fact.style.display = 'block';
+                        factText.innerText = this.responseText;
+                    }
+                }
+
+                xhr.send();
+            }
+        }
+
+        
+
+    </script>
+</body>
+
+</html>
